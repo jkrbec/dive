@@ -1,0 +1,17 @@
+# Obecné
+*.log
+*.pyc
+*.db
+node_modules/
+dist/
+
+# Django specifické
+*.sqlite3
+__pycache__/
+*.pyo
+*.bak
+*.swp
+
+# Angular specifické
+/frontend/dist/
+/frontend/node_modules/
