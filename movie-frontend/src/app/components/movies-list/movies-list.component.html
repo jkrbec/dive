@@ -1,16 +1,19 @@
 <div class="container mt-4">
-  <div class="header-button">
-    <h2>Movie List</h2>
-    <button class="btn btn-primary" (click)="openAddMovieModal()">
-      <!-- icon plus -->
-      <i class="fa fa-plus"></i>
-    </button>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="col-8">
+      <h2 class="mb-0">Movie List</h2>
+    </div>
+    <div class="col-4 text-center">
+      <button class="btn btn-success" (click)="openAddMovieModal()" title="Add Movie">
+        <i class="fa fa-plus fa-lg"></i>
+      </button>
+    </div>
   </div>
-
-  <!-- modal okno -->
-  <!-- Modální okno pro přidání filmu -->
+  
+  <!-- Modal pro přidání filmu -->
   <div
-    class="modal"
+    class="modal fade"
+    id="movieModal"
     tabindex="-1"
     role="dialog"
     [class.show]="showModal"
@@ -19,7 +22,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">
+          <h5 class="modal-title" id="movieModalLabel">
             {{ currentEditingMovieId ? "Edit Movie" : "Add New Movie" }}
           </h5>
         </div>
@@ -57,18 +60,21 @@
             Close
           </button>
           <button type="button" class="btn btn-primary" (click)="saveMovie()">
-            Save changes
+            {{ currentEditingMovieId ? "Update" : "Save" }}
           </button>
         </div>
       </div>
     </div>
   </div>
-  <table class="table">
-    <thead>
+
+  <!-- Tabulka s filmy -->
+  <table class="table table-hover">
+    <thead class="thead-light align-items-center justify-content-evenly">
       <tr>
-        <th>Title</th>
-        <th>Rating</th>
-        <th>Actions</th>
+        <th scope="col">Title</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -82,14 +88,26 @@
           </app-star-rating>
         </td>
         <td>
+          <div class="text-start">
+            <button
+              class="btn btn-primary btn-sm"
+              (click)="editMovie(movie)"
+              title="Edit Movie"
+            >
+              <i class="fa fa-edit fa-lg"></i>
+            </button>
+          </div>
+        </td>
+        <td>
+          <div class="text-left">
           <button
-            class="btn btn-primary btn-sm mr-2"
-            (click)="editMovie(movie)"
-          >
-            Edit
-          </button>
-
-          <button class="btn btn-danger btn-sm mr-2" (click)="deleteMovie(movie.id)">Delete</button>
+              class="btn btn-danger btn-sm mx-2"
+              (click)="deleteMovie(movie.id)"
+              title="Delete Movie"
+            >
+              <i class="fa fa-trash fa-lg"></i>
+            </button>
+          </div>
         </td>
       </tr>
     </tbody>
