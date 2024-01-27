@@ -2,6 +2,8 @@
 
 Tato aplikace je jednoduchý systém pro hodnocení filmů s backendem v Django a frontendem v Angular.
 
+![App screenshot](screen_sw.png)
+
 ## Backend - Django
 
 Backend aplikace je postaven na Django frameworku a je spravován pomocí nástroje Poetry pro závislosti a virtuální prostředí.
