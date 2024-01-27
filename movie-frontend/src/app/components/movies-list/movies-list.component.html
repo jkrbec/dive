@@ -50,6 +50,16 @@
               max="7"
             />
           </div>
+          <!-- Add a file input field for image uploads -->
+      <div class="form-group">
+        <label for="movieImage">Image</label>
+        <input
+          type="file"
+          class="form-control-file"
+          id="movieImage"
+          (change)="handleImageUpload($event)"
+        />
+      </div>
         </div>
         <div class="modal-footer">
           <button

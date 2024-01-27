@@ -10,8 +10,20 @@
 <div class="carousel-inner">
     <div *ngFor="let movie of movies$ | async; let i = index" class="carousel-item" [class.active]="i === 0">
         <!-- Přidejte placeholder obrázek zde -->
-        <img src="../../../assets/images/film_placeholder.png" class="d-block w-100" alt="{{ movie.title }}">
-        <div class="carousel-caption">
+        <img
+        *ngIf="movie.imageUrl; else placeholder"
+        [src]="movie.imageUrl"
+        class="d-block w-100"
+        alt="{{ movie.title }}"
+      />
+      
+      <ng-template #placeholder>
+        <img
+          src="../../../assets/images/sw_placeholder.png"
+          class="d-block w-100"
+          alt="{{ movie.title }}"
+        />
+      </ng-template>        <div class="carousel-caption">
             <h5>{{ movie.title }}</h5>
             <app-star-rating
             [rating]="movie.rating"

@@ -13,12 +13,13 @@ import { StarRatingComponent } from 'src/app/components/star-rating/star-rating.
   standalone: true,
 })
 export class MoviesListComponent implements OnInit {
-  movies: Movie[] = [];
+ // movies: Movie[] = [];
   movies$: Observable<Movie[]>;
   newMovieTitle: string = '';
   newMovieRating: number = 1;
   showModal: boolean = false;
   currentEditingMovieId: number | null = null;
+  selectedImageFile: any;
 
   constructor(private movieService: MovieService) {
     this.movies$ = this.movieService.movies$;
@@ -40,6 +41,8 @@ export class MoviesListComponent implements OnInit {
     const newMovie: NewMovie = {
       title: this.newMovieTitle,
       rating: this.newMovieRating,
+      image: this.selectedImageFile
+      
     };
     this.movieService.addMovie(newMovie).subscribe({
       next: () => {
@@ -47,6 +50,7 @@ export class MoviesListComponent implements OnInit {
         this.closeAddMovieModal();
         this.newMovieTitle = '';
         this.newMovieRating = 1;
+        this.selectedImageFile = null;
       },
       error: (error) => {
         console.error('Error adding new movie', error);
@@ -62,7 +66,8 @@ export class MoviesListComponent implements OnInit {
   
     const updatedMovieData: NewMovie = {
       title: this.newMovieTitle,
-      rating: this.newMovieRating
+      rating: this.newMovieRating,
+      image: this.selectedImageFile
     };
   
     this.movieService.updateMovie(this.currentEditingMovieId, updatedMovieData).subscribe({
@@ -70,11 +75,10 @@ export class MoviesListComponent implements OnInit {
         // Zpracování po úspěšné aktualizaci
         this.closeAddMovieModal();
         this.resetForm();
-        // Zde můžete přidat další logiku, např. zobrazení zprávy o úspěchu
+        console.log(updatedMovieData)
       },
       error: (error) => {
         console.error('Error updating movie', error);
-        // Zde můžete přidat logiku pro zpracování chyby, např. zobrazení chybové zprávy
       }
     });
   }
@@ -141,18 +145,14 @@ onRatingChanged(movie: Movie, newRating: number) {
   });
 }
 
+handleImageUpload(event: Event): void {
+  const element = event.currentTarget as HTMLInputElement;
+  let fileList: FileList | null = element.files;
+  if (fileList && fileList.length > 0) {
+    this.selectedImageFile = fileList.item(0);
+  } else {
+    this.selectedImageFile = null;
+  }
+}
 
-  // editMovie(movie: Movie): void {
-  //   //Otevření dialogu
-
-  //   this.movieService.updateMovie(updatedMovie).subscribe({
-  //     next: (response) => {
-  //       // Při úspěšné aktualizaci aktualizuje film
-  //       movie = updatedMovie;
-  //     },
-  //     error: (error) => {
-  //       console.error('Error updating movie rating', error);
-  //     }
-  //   })
-  // }
 }
