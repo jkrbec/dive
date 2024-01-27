@@ -1,8 +1,8 @@
-<!-- star-rating.component.html -->
 <div class="star-rating">
-    <span *ngFor="let star of [1, 2, 3, 4, 5, 6, 7]" (click)="onClick(star)">
-      <i class="fa" [ngClass]="star <= rating ? 'fas fa-star' : 'far fa-star'"></i>
-    </span>
-  </div>
-  
-  
+  <span *ngFor="let star of [1, 2, 3, 4, 5, 6, 7]" (click)="onClick(star)">
+    <i
+      class="fa"
+      [ngClass]="star <= rating ? 'fas fa-star' : 'far fa-star'"
+    ></i>
+  </span>
+</div>

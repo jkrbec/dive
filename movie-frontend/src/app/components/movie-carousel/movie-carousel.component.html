@@ -1,32 +1,55 @@
-<!-- movie-carousel.component.html -->
 <div id="movieCarousel" class="carousel slide" data-bs-ride="carousel">
-    <!-- Indikátory -->
-    <div class="carousel-indicators">
-        <button *ngFor="let movie of movies$ | async; let i = index" type="button" data-bs-target="#movieCarousel" [attr.data-bs-slide-to]="i" [class.active]="i === 0" attr.aria-label="Slide {{ i + 1 }}"></button>
-    </div>
-    
-    <!-- Carousel obsah -->
-   <!-- movie-carousel.component.html -->
-<div class="carousel-inner">
-    <div *ngFor="let movie of movies$ | async; let i = index" class="carousel-item" [class.active]="i === 0">
-        <!-- Přidejte placeholder obrázek zde -->
-        <img src="../../../assets/images/film_placeholder.png" class="d-block w-100" alt="{{ movie.title }}">
-        <div class="carousel-caption">
-            <h5>{{ movie.title }}</h5>
-            <app-star-rating
-            [rating]="movie.rating"
-            (ratingChange)="onRatingChanged(movie, $event)">
-          </app-star-rating>
-          
-        </div>
-    </div>
-</div>
+  <!-- Indikátory -->
+  <div class="carousel-indicators">
+    <button
+      *ngFor="let movie of movies$ | async; let i = index"
+      type="button"
+      data-bs-target="#movieCarousel"
+      [attr.data-bs-slide-to]="i"
+      [class.active]="i === 0"
+      attr.aria-label="Slide {{ i + 1 }}"
+    ></button>
+  </div>
 
-    <!-- Ovládání carouselu -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    </button>
+  <!-- Carousel obsah -->
+  <div class="carousel-inner">
+    <div
+      *ngFor="let movie of movies$ | async; let i = index"
+      class="carousel-item"
+      [class.active]="i === 0"
+    >
+      <!-- Přidejte placeholder obrázek zde -->
+      <img
+        src="../../../assets/images/film_placeholder.png"
+        class="d-block w-100"
+        alt="{{ movie.title }}"
+      />
+      <div class="carousel-caption">
+        <h5>{{ movie.title }}</h5>
+        <app-star-rating
+          [rating]="movie.rating"
+          (ratingChange)="onRatingChanged(movie, $event)"
+        >
+        </app-star-rating>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ovládání carouselu -->
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#movieCarousel"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#movieCarousel"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  </button>
 </div>

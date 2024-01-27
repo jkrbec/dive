@@ -4,12 +4,16 @@
       <h2 class="mb-0">Movie List</h2>
     </div>
     <div class="col-4 text-center">
-      <button class="btn btn-success" (click)="openAddMovieModal()" title="Add Movie">
+      <button
+        class="btn btn-success"
+        (click)="openAddMovieModal()"
+        title="Add Movie"
+      >
         <i class="fa fa-plus fa-lg"></i>
       </button>
     </div>
   </div>
-  
+
   <!-- Modal pro přidání filmu -->
   <div
     class="modal fade"
@@ -100,7 +104,7 @@
         </td>
         <td>
           <div class="text-left">
-          <button
+            <button
               class="btn btn-danger btn-sm mx-2"
               (click)="deleteMovie(movie.id)"
               title="Delete Movie"

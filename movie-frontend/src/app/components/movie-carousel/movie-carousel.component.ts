@@ -5,7 +5,6 @@ import { MovieService } from 'src/app/services/movie.service';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-movie-carousel',
   templateUrl: './movie-carousel.component.html',
@@ -27,18 +26,16 @@ export class MovieCarouselComponent implements OnInit {
   onRatingChanged(movie: Movie, newRating: number) {
     const updatedMovieData: NewMovie = {
       title: movie.title,
-      rating: newRating
+      rating: newRating,
     };
-  
+
     this.movieService.updateMovie(movie.id, updatedMovieData).subscribe({
       next: (response) => {
-        // Aktualizace provedena, můžete aktualizovat UI nebo provést další akce
         movie.rating = newRating;
       },
       error: (error) => {
         console.error('Error updating movie rating', error);
-      }
+      },
     });
   }
-  
 }

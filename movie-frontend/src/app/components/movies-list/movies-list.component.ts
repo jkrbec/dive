@@ -59,62 +59,56 @@ export class MoviesListComponent implements OnInit {
       console.error('Error: No movie is currently being edited');
       return;
     }
-  
+
     const updatedMovieData: NewMovie = {
       title: this.newMovieTitle,
-      rating: this.newMovieRating
+      rating: this.newMovieRating,
     };
-  
-    this.movieService.updateMovie(this.currentEditingMovieId, updatedMovieData).subscribe({
-      next: () => {
-        // Zpracování po úspěšné aktualizaci
-        this.closeAddMovieModal();
-        this.resetForm();
-        // Zde můžete přidat další logiku, např. zobrazení zprávy o úspěchu
-      },
-      error: (error) => {
-        console.error('Error updating movie', error);
-        // Zde můžete přidat logiku pro zpracování chyby, např. zobrazení chybové zprávy
-      }
-    });
+
+    this.movieService
+      .updateMovie(this.currentEditingMovieId, updatedMovieData)
+      .subscribe({
+        next: () => {
+          // Zpracování po úspěšné aktualizaci
+          this.closeAddMovieModal();
+          this.resetForm();
+        },
+        error: (error) => {
+          console.error('Error updating movie', error);
+        },
+      });
   }
-  
+
   resetForm(): void {
     this.newMovieTitle = '';
     this.newMovieRating = 1;
     this.currentEditingMovieId = null;
   }
-  
-  
-  
-  
 
   editMovie(movie: Movie): void {
     this.newMovieTitle = movie.title;
     this.newMovieRating = movie.rating;
-    this.currentEditingMovieId = movie.id; // Přidáte proměnnou pro sledování upravovaného filmu
+    this.currentEditingMovieId = movie.id;
     this.showModal = true;
   }
 
   deleteMovie(movieId: number): void {
-    const confirmDelete = confirm('Are you sure you want to delete this movie?');
+    const confirmDelete = confirm(
+      'Are you sure you want to delete this movie?'
+    );
     if (confirmDelete) {
       this.movieService.deleteMovie(movieId).subscribe({
         next: () => {
-          // Zde můžete přidat logiku po úspěšném smazání
           console.log('Movie deleted successfully');
         },
         error: (error) => {
           console.error('Error deleting movie', error);
-        }
+        },
       });
     }
   }
-  
-  
 
   ngOnInit(): void {}
-  // V MoviesListComponent nebo MovieCarouselComponent
 
   saveMovie(): void {
     if (this.currentEditingMovieId !== null) {
@@ -123,36 +117,20 @@ export class MoviesListComponent implements OnInit {
       this.addNewMovie();
     }
   }
-  
-onRatingChanged(movie: Movie, newRating: number) {
-  const updatedMovieData: NewMovie = {
-    title: movie.title,
-    rating: newRating
-  };
 
-  this.movieService.updateMovie(movie.id, updatedMovieData).subscribe({
-    next: () => {
-      movie.rating = newRating; // Aktualizujte hodnocení v lokálním stavu
-      // Další logika, pokud je třeba
-    },
-    error: (error) => {
-      console.error('Error updating movie rating', error);
-    }
-  });
-}
+  onRatingChanged(movie: Movie, newRating: number) {
+    const updatedMovieData: NewMovie = {
+      title: movie.title,
+      rating: newRating,
+    };
 
-
-  // editMovie(movie: Movie): void {
-  //   //Otevření dialogu
-
-  //   this.movieService.updateMovie(updatedMovie).subscribe({
-  //     next: (response) => {
-  //       // Při úspěšné aktualizaci aktualizuje film
-  //       movie = updatedMovie;
-  //     },
-  //     error: (error) => {
-  //       console.error('Error updating movie rating', error);
-  //     }
-  //   })
-  // }
+    this.movieService.updateMovie(movie.id, updatedMovieData).subscribe({
+      next: () => {
+        movie.rating = newRating; // Aktualizujte hodnocení v lokálním stavu
+      },
+      error: (error) => {
+        console.error('Error updating movie rating', error);
+      },
+    });
+  }
 }
