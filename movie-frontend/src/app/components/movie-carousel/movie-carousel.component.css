@@ -1,0 +1,22 @@
+/* movie-carousel.component.css */
+
+/* Carousel base class */
+.carousel {
+    margin-bottom: 4rem;
+  }
+  
+  /* Since positioning the image, we need to help out the caption */
+  .carousel-caption {
+    bottom: 3rem;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5); /* Polo-průhledné černé pozadí */
+    color: #fff;
+    padding: 10px; /* Trochu prostoru okolo textu */
+    border-radius: 10px;
+  }
+  
+  /* Declare heights because of positioning of img element */
+  .carousel-item {
+    height: 24rem;
+  }
+  

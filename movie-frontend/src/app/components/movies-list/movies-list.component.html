@@ -1,0 +1,97 @@
+<div class="container mt-4">
+  <div class="header-button">
+    <h2>Movie List</h2>
+    <button class="btn btn-primary" (click)="openAddMovieModal()">
+      <!-- icon plus -->
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+
+  <!-- modal okno -->
+  <!-- Modální okno pro přidání filmu -->
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    [class.show]="showModal"
+    [style.display]="showModal ? 'block' : 'none'"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            {{ currentEditingMovieId ? "Edit Movie" : "Add New Movie" }}
+          </h5>
+        </div>
+        <div class="modal-body">
+          <!-- Formulář pro přidání filmu -->
+          <div class="form-group">
+            <label for="movieTitle">Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="movieTitle"
+              [(ngModel)]="newMovieTitle"
+              placeholder="Enter movie title"
+            />
+          </div>
+          <div class="form-group">
+            <label for="movieRating">Rating</label>
+            <input
+              type="number"
+              class="form-control"
+              id="movieRating"
+              [(ngModel)]="newMovieRating"
+              placeholder="Rating (1-7)"
+              min="1"
+              max="7"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeAddMovieModal()"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" (click)="saveMovie()">
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Rating</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let movie of movies$ | async">
+        <td>{{ movie.title }}</td>
+        <td>
+          <app-star-rating
+            [rating]="movie.rating"
+            (ratingChange)="onRatingChanged(movie, $event)"
+          >
+          </app-star-rating>
+        </td>
+        <td>
+          <button
+            class="btn btn-primary btn-sm mr-2"
+            (click)="editMovie(movie)"
+          >
+            Edit
+          </button>
+
+          <button class="btn btn-danger btn-sm mr-2" (click)="deleteMovie(movie.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
